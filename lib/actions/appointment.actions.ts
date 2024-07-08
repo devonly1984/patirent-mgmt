@@ -6,6 +6,7 @@ import { parseStringify } from "../utils";
 
 import { Appointment } from "@/types/appwrite.types";
 import { revalidatePath } from "next/cache";
+import { CreateAppointmentParams, UpdateAppointmentParams } from "@/types";
 
 export const createAppointment = async(appointment: CreateAppointmentParams)=>{
     try {
@@ -64,7 +65,12 @@ return parseStringify(data);
     console.log(error)
   }
 }
-export const updateAppointment = async({appointmentId,appointment,userId,type}:UpdateAppointmentParams)=>{
+export const updateAppointment = async ({
+  appointmentId,
+  appointment,
+  userId,
+  type,
+}: UpdateAppointmentParams) => {
   try {
     const updatedAppointment = await databases.updateDocument(
       DATABASE_ID!,
@@ -73,12 +79,12 @@ export const updateAppointment = async({appointmentId,appointment,userId,type}:U
       appointment
     );
     if (!updatedAppointment) {
-      throw new Error("Appointment not found")
+      throw new Error("Appointment not found");
     }
     //SMS Notification
-    revalidatePath('/admin');
+    revalidatePath("/admin");
     return parseStringify(updatedAppointment);
   } catch (error) {
     console.log(error);
   }
-}
+};

@@ -54,3 +54,10 @@ declare type SearchParamProps = {
     appointment: Appointment;
     type: string;
   };
+  export interface AppointmentFormProps {
+    userId: string;
+    patientId: string;
+    type: "create" | "schedule" | "cancel";
+    appointment?: Appointment;
+    setOpen: (open: boolean) => void;
+  }

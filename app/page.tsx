@@ -1,5 +1,6 @@
 import PatientForm from "@/components/forms/PatientForm";
 import PasskeyModal from "@/components/modals/PasskeyModal";
+import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 

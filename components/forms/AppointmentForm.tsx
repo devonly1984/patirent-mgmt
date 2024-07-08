@@ -17,14 +17,9 @@ import { Doctors } from "@/constants";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions";
-import { Appointment } from "@/types/appwrite.types";
-interface AppointmentFormProps {
-  userId: string;
-  patientId: string;
-  type: "create" | "schedule" | "cancel";
-  appointment?: Appointment;
-  setOpen: (open: boolean) => void;
-}
+
+import { AppointmentFormProps, Status } from "@/types";
+
 
 
 const AppointmentForm = ({
@@ -43,9 +38,11 @@ const AppointmentForm = ({
     resolver: zodResolver(AppointmentFormValidation),
     defaultValues: {
       primaryPhysician: appointment ? appointment.primaryPhysician : "",
-      schedule: appointment ? new Date(appointment.schedule) : new Date(),
+      schedule: appointment
+        ? new Date(appointment.schedule)
+        : new Date(Date.now()),
       reason: appointment ? appointment.reason : "",
-      note: appointment ? appointment.node : "",
+      note: appointment.note || "",
       cancellationReason: appointment?.cancellationReason || "",
     },
   });
@@ -83,7 +80,7 @@ const AppointmentForm = ({
             `/patients/${userId}/new-appointment/success?appointmentId=${appointment.$id}`
           );
         }
-      }else {
+      } else {
         const appointmentToUpdate = {
           userId,
           appointmentId: appointment?.$id!,
@@ -95,7 +92,7 @@ const AppointmentForm = ({
           },
           type,
         };
-        const updatedAppointment = await updateAppointment(appointmentToUpdate)
+        const updatedAppointment = await updateAppointment(appointmentToUpdate);
         if (updatedAppointment) {
           setOpen && setOpen(false);
           form.reset();

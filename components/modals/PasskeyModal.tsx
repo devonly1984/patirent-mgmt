@@ -103,6 +103,7 @@ const PasskeyModal = () => {
         </div>
         <AlertDialogFooter>
           <AlertDialogAction
+            //@ts-ignore
             onClick={(e) => validatePasskey(e)}
             className="shad-primary-btn w-full"
           >

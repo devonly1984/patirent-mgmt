@@ -19,6 +19,7 @@ import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FileUploader";
+import { User } from "@/types";
 
 const RegisterForm = ({ user }: { user: User }) => {
   const [isLoading, setisLoading] = useState(false);
