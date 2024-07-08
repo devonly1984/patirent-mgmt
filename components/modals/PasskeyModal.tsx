@@ -26,7 +26,10 @@ const PasskeyModal = () => {
     const [passkey, setPasskey] = useState("");
     const [error, setError] = useState("");
     const pathname = usePathname();
-    const encryptedKey = typeof window  !== undefined ? window.localStorage.getItem('accessKey'):null;
+    const encryptedKey =
+      typeof window !== "undefined"
+        ? window.localStorage.getItem("accessKey")
+        : null;
         
     const router = useRouter()
     useEffect(() => {   
@@ -34,7 +37,7 @@ const PasskeyModal = () => {
         if (pathname) {
           if (accessKey === process.env.NEXT_PUBLIC_ADMIN_PASSKEY) {
             setOpen(false);
-            router.push("/");
+            router.push("/admin");
           } else {
             setOpen(true);
           }
